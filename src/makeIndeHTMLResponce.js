@@ -2,24 +2,22 @@ import { refs } from './refs';
 import Notiflix from 'notiflix';
 
 export function makeHTML(result) {
+  refs.div.innerHTML = '';
+
   if (result.status === 404) {
-    refs.div.innerHTML = '';
     Notiflix.Notify.failure('Oops, there is no country with that name');
     return;
   }
 
   if (result.length > 10) {
-    refs.div.innerHTML = '';
     Notiflix.Notify.info('Too many matches found. Please enter a more specific name.');
     return;
   }
   if (result.length === 1) {
-    refs.div.innerHTML = '';
     const markup = getCartByOneCountry(result);
     refs.div.innerHTML = markup;
     return;
   }
-  refs.div.innerHTML = '';
   const blockOfCountries = getCartByFindedCountries(result);
   refs.div.append(blockOfCountries);
 }
